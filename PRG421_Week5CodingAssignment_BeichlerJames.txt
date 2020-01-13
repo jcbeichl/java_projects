@@ -1,0 +1,81 @@
+/********************************************************************** 
+*Program:        PRG282Week5CodeAssignment_startercode.java  
+* Purpose:       Starter code to access two tables via JDBC. 
+* Programmer:    James Beicnler
+* Class:         PRG/421r13, Java Programming II 
+* Instructor:    Jeff Lee
+* Creation Date: 2/18/2019
+* 
+* CommentS:      The purpose of this code is to access a relational
+*                database (MySQL), query two joined tables, and
+*                process the results of the query. For this assignment,
+*                no heavy-duty processing is required; we will simply
+*                examine the returned data and display a selected
+*                portion of it on the console.  
+***********************************************************************/ 
+package sqlstarter;
+
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.ResultSet;
+import java.sql.SQLException; 
+import java.sql.Statement;
+
+public class SQLstarter {
+public static void main (String[ ] args)  { 
+ 
+try {    		    // start of the try/catch block of code
+   String host  = "localhost:3306";   // This value is provided in the instructions for this assignment.                             
+   String uName = "student";   // This value is provided in the instructions for this assignment.   
+   String uPass = "prg421";   // This value is provided in the instructions for this assignment.  
+
+//display name and date
+System.out.println("James Beichler 2/18/2019");
+
+//Open Connection 
+System.out.println("Connecting to database...");
+Connection conn = DriverManager.getConnection(host, uName, uPass);  
+
+//Execute a query
+System.out.println("Creating statement...");
+Statement stmt = conn.createStatement();                            
+// Select values from the tables 
+String sql = "select  Emp id, FName, LName, State, Paysch, 401k;";                                                                                  
+ResultSet rs = stmt.executeQuery (sql);            // cursor pointing to its current row of data                        
+                                          
+System.out.println ("Displaying student information: ");        // display values from the tables
+      
+
+while (rs.next()){
+
+String Emp id = rset.getString("Emp id");                      
+String FName = rset.getString("FName"); 
+String LName = rset.getString("LName"); 
+String State = rset.getString("State");
+String Paysch = rset.getString("Paysch");
+String 401k = rset.getString("401k");
+    
+   // System.out.println (Stu_id  + ",  " +Stu_Name );        
+ System.out.println ("Emp id: " +Emp id);
+ System.out.println (", First Name: " +FName);
+ System.out.println (", Last Name: " +LName);
+ System.out.println (", State: " +State);
+ System.out.println (", Paysch: " +Paysch);
+ System.out.println (", 401k: " +401k);
+ 
+ //STEP 6: Clean-up environment
+      rs.close();
+      stmt.close();
+      conn.close();
+}                                                  
+    }     
+        
+catch ( SQLException err ) { 
+System.out.println( err.getMessage(  )  ); 
+ 
+} 
+ 
+} 
+ 
+} 
+
